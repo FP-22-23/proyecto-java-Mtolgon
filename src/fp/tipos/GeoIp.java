@@ -9,6 +9,7 @@ public record GeoIp(String city,String countryName,String regionName,Double lati
 	* @param regionName, string contiene la region desde la que se hizo el edit
 	* @param latitud,double contiene la latitud desde la que se hizo el edit
 	* @param longitud, double contiene la longitud desde la que se hizo el edit
-	
+
 	*/
 }
+

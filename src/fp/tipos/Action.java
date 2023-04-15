@@ -1,5 +1,5 @@
 package fp.tipos;
 
 public enum Action {
- EDITS,TALK,OTHER;
+ EDIT,TALK,OTHER;
 }

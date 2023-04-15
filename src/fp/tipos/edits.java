@@ -31,12 +31,12 @@ public class edits {
 		 * @param user Indica el nombre de usuario del usuario que editó la página. Será una ip si el usuario no está registrado 
 		 * @param urls Contiene la direccion de la página antes y después de que fuese editada
 		 * @param fechaEdit Indica la fecha en la que se editó la página
-		 *  * @throws IllegalArgumentException si action no es EDITS
+		 *  @throws IllegalArgumentException si action no es EDITS
 		 *   * @throws IllegalArgumentException si pageTitle es null 
 		 *    * @throws IllegalArgumentException si fechaEdit no esta entre el 15/1/2001 y la fecha actual
 		 */
 		Checkers.checkNoNull(pageTitle);
-	    Checkers.check("Error en accion", action==Action.EDITS);
+	    Checkers.check("Error en accion", action==Action.EDIT);
 	    Checkers.check("Error en fecha", fechaEdit.isAfter(LocalDate.of(2001, 1, 15))&&fechaEdit.isBefore(LocalDate.now()));
 		this.action = action;
 		this.changeSize = changeSize;
@@ -52,7 +52,7 @@ public class edits {
 public edits(Action action, Integer changeSize, Boolean isBot, Boolean isMinor, String pageTitle, String user,
 			List<String> urls, LocalDate fechaEdit) {
 	    Checkers.checkNoNull(pageTitle);
-	    Checkers.check("Error en accion", action==Action.EDITS);
+	    Checkers.check("Error en accion", action==Action.EDIT);
 	    Checkers.check("Error en fecha", fechaEdit.isAfter(LocalDate.of(2001, 1, 15))&&fechaEdit.isBefore(LocalDate.now()));
 		this.action = action;
 		this.changeSize = changeSize;

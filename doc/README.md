@@ -80,39 +80,42 @@ Contiene informacion sobre una vez que una página concreta de la wikipedia fue 
 Action, enumerado. Puede tomar los valores EDITS,TALK o OTHER
 
 GeoIp,record. Recibe una ciudad(String),país(String),region(String),latitud(Double) y longitud(Double)
-### Factoría
-Descripción breve de la factoría.
+### Factoría-FactoriaEdits
+Objeto de clase factoria para contruir objetos de clse edits
 
-- _método 1_: Descripción del método 1.
--	_método 2_: Descripción del método 2.
+-create: crea un objeto de tipo edits a partir de una cadena de texto. 
+-ParseaGeoIp: crea un objeto de tipo GeoIp a partir de una cadena de texto.
+-leerEdits:crea una lista de objetos de tipo edits a partir de un fichero.
 
-### Tipo Contenedor
+### Tipo Contenedor-recopilacionEdits
 
-Descripción breve del tipo contenedor.
+Clase contenedora de los objetos de tipo edits.Representa una recopilación de páginas editadas de la wikipedia.
 
 **Propiedades**:
 
-- _propiedad1_, de tipo \<Tipo1\>, consultable. 
-- _propiedad2_, de tipo \<Tipo2\>, consultable y modificable. 
-- ...
+- AutorReco, de tipo String, consultable. Representa el nombre del autor de la recopilacion
+- creacionReco, de tipo LocalDate, consultable. Representa la fecha en la que se creo la recopilacion.
+ - editsList, de tipo List, consultable.Representa una lista de objetos de tipo edits.
 - 
 **Constructores**: 
 
-- C1: Descripción del constructor 1.
-- C2: Descripción del constructor 2.
+- C1: tiene un parametro por cada propiedad básica del tipo .
+- C2: tiene un parapmetro para el AutorReco y creacionReco, crea una lista vacia.
 - ...
 
-**Restricciones**:
- 
-- R1: Descripción de la restricción 1.
-- R2: Descripción de la restricción 2.
-- ...
-- 
-**Criterio de igualdad**: Describir el criterio de igualdad
 
-**Criterio de ordenación**: Describir el criterio de ordenación (si lo hay).
+**Criterio de igualdad**: Dos recopilaciones son iguales si lo son su autor y su fecha de creacion.
+
+
 
 **Otras operaciones**:
  
--	_método 1_: Descripción del método 1.
-- ...
+-Integer numelementos: devuelve el numero de elementos de editsList
+- void añadir: añade un elemento a editsList.
+-void añadirColeccion:añade una lista de elementos a editsList
+-eliminarElemento: elimina un elemento de editsList, puede recivir el objeto o su posicion.
+-boolean ExisteUnEditsDeUsuario: devuelve true si hay al menos un edits hecho por un usario dado.
+-Double mediaEditsPorUsuariosRegistrados: devuelve la media  de cuantos edits han sido hechos por usuarios registrados.
+-List<edits> editsPorPais: devuelve una lista con todos los edits hechos en un pais dado.
+-Map<Integer, List<edits>> editsPorAño:devuelve un Map que agrupa los edits por el año en que se hiceron
+-Map<Integer, Integer> NumEditsPorCaracCambiados():devuelve un Map que relaciona en el número de caracteres cambiados con el número de edits en los que se ha cambiado ese número de caracteres.
