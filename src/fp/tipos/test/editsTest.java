@@ -95,5 +95,17 @@ public class editsTest {
         System.out.println("Lista de edits hechos en India "+re1.editsPorPais("India"));
         System.out.println("Lista de edits agrupados por año "+re1.editsPorAño());
         System.out.println("diccionario que agrupa el numero de edits que tienen un mismo numero de caracteres cambiados "+re1.NumEditsPorCaracCambiados());
+        //ENTREGA TRES
+        System.out.println("Test factoria");
+        recopilaciónEdits re4= FactoriaEdits.creaRecopilacionEdits("User",f3,"data/edits.csv");
+        System.out.println(re4.getAutorReco());
+        System.out.println("Existe algun edit hecho por el usuairo MONGO: "+re1.ExisteUnEditsDeUsuario2("MONGO"));
+        System.out.println("Media  edits hechos por usuario registrados "+re1.mediaEditsPorUsuariosRegistrados2());
+        System.out.println("Lista de edits hechos en India "+re1.editsPorPais2("India"));
+        System.out.println("Lista de edits agrupados por año "+re1.editsPorAño2());
+        System.out.println("Lista de usuarios:"+re1.listaNombres() );
+        System.out.println("Lista de los mayores cambios por pagina: "+re1.mayorNumCambiosPorPagina());
+        System.out.println("Lista de los cinco mayores cambios por usuario: "+re1.NmayoresNumCambiosPorUser(5));
+        System.out.println("Usuario con mas apariciones: "+re1.Usuariomasapariciones());
 	}}
         

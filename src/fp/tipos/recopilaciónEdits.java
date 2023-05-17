@@ -2,11 +2,17 @@ package fp.tipos;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
+import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import fp.utiles.Checkers;
 
@@ -26,7 +32,6 @@ Representa la fecha en la que se creo la recopilacion.
 
  */
 public recopilaciónEdits(String autorReco, LocalDate creacionReco, List<fp.tipos.edits> edits) {
-	super();
 	this.autorReco = autorReco;
 	this.creacionReco = creacionReco;
 	this.editsList = edits;
@@ -35,6 +40,14 @@ public recopilaciónEdits(String autorReco, LocalDate creacionReco) {
 	editsList=new ArrayList<>();
 	this.autorReco = autorReco;
 	this.creacionReco = creacionReco;
+}
+
+public recopilaciónEdits(String autorReco,LocalDate creacionReco, Stream<edits> editsList) {
+	this.autorReco=autorReco;
+	this.creacionReco=creacionReco;
+	this.editsList=editsList.collect(Collectors.toList());
+	
+	
 }
 
 public Integer numelementos() {
@@ -76,7 +89,7 @@ public Double mediaEditsPorUsuariosRegistrados() {
 	//devuelve la media  de cuantos edits han sido hechos por usuarios registrados.
 	Integer usuariosReg=0;
 	for(edits e : editsList) {
-		if(e.getIsAnonymous()) {
+		if(!(e.getIsAnonymous())) {
 			usuariosReg++;
 		}
 	}
@@ -154,6 +167,192 @@ public boolean equals(Object obj) {
 public String toString() {
 	return "Autor de la recopilacion " + autorReco + ", fecha de creación de la recopilacion " + creacionReco + ", Primer elemento: " + editsList.get(0) + "]";
 }
+
+//TERCERA ENTREGA
+//BLOQUE 1
+public boolean ExisteUnEditsDeUsuario2(String user) {
+	//devuelve true si hay al menos un edits hecho por un usario dado.
+return editsList.stream()
+		.anyMatch(e->e.getUser().equals(user));
+
+}
+
+
+public Double mediaEditsPorUsuariosRegistrados2() {
+	//devuelve la media  de cuantos edits han sido hechos por usuarios registrados.
+	double res=editsList.stream()
+			.filter(e->e.getIsAnonymous()==false)
+			.collect(Collectors.collectingAndThen(Collectors.counting(), Long::doubleValue));
+	return  res/editsList.size();
+		
+}
+
+public List<edits> editsPorPais2(String pais){
+	//devuelve una lista con todos los edits hechos en un pais dado.
+return editsList.stream()
+		.filter(e-> e.getGeoIp()!=null && e.getGeoIp().countryName().equals(pais))
+		.toList();
+	}
+
+public edits MaxNumCaracteresCambiadosPorUsuarioAnonimo() {
+	//devuelve que el usuario que haya realizado el mayor numero de cambios en una página
+	List<edits> le=new ArrayList<>();
+	for(edits e: editsList ) {
+		if(e.getIsAnonymous()==true) {
+			le.add(e);
+		}
+	}
+	le.sort(Comparator.comparing(edits::getChangeSize));
+	return le.get(1);
+}
+
+public List<edits> listaEditsPorUsuario(String usuario){
+	List<edits> res=new ArrayList<>();
+	for(edits e: editsList ) {
+		if(e.getUser().equals(usuario)) {
+			res.add(e);
+		}
+}
+	 res.sort(Comparator.comparing(edits::getFechaEdit));
+	return res;
+}
+
+
+public Map<Integer, List<edits>> editsPorAño2(){
+	//devuelve un Map que agrupa los edits por el año en que se hiceron
+	return editsList.stream()
+			.collect(Collectors.groupingBy(p->p.getFechaEdit().getYear(), Collectors.toList()));
+}
+
+
+public Set<String> listaNombres(){
+	//devuelve un conjunto con lo nombres de usuarios que hayan realizado un edit
+	return editsList.stream().collect(Collectors.mapping(edits::getUser, Collectors.toSet()));
+}
+
+public Map<String,Integer> mayorNumCambiosPorPagina(){
+	//devuelve un map que relaciona el titulo de las paginas editadas con el mayor número de carácteres cambiados.
+	Comparator<edits> c=Comparator.comparing(edits::getChangeSize);
+	return editsList.stream()
+			.collect(Collectors
+					.groupingBy(edits::getPageTitle
+							,
+							Collectors.collectingAndThen(Collectors.maxBy(c), e->e.get().getChangeSize())
+							));
+}
+
+
+public Map<String, List<Integer>> NmayoresNumCambiosPorUser(Integer n){
+	//devuelve un map que relaciona el titulo de las paginas editadas con los n mayores números de carácteres cambiados.
+	Comparator<edits> c=Comparator.comparing(edits::getChangeSize).reversed();
+
+	return editsList.stream()
+		.collect(Collectors.groupingBy(edits::getUser
+					, 
+					Collectors.collectingAndThen(Collectors.toList(), e->e.stream()
+							.sorted(c).limit(n).collect(Collectors.mapping(edits::getChangeSize, Collectors.toList())))
+					)
+					);
+			
+}
+
+public String Usuariomasapariciones() {
+	//devuelve el noimbre del usuario que mas aprezca en la collcion
+	Map<String, Integer> aux= editsList.stream()
+			.collect(Collectors
+					.groupingBy(edits::getUser
+							,
+							
+							Collectors.collectingAndThen(Collectors.counting(), Long::intValue)
+							));
+	return Collections.max(aux.entrySet(),Comparator.comparingInt(Map.Entry::getValue)).getKey();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

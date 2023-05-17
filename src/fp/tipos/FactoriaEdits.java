@@ -79,6 +79,21 @@ public class FactoriaEdits {
 		}
 		return res;
 	}
+	public static recopilaciónEdits creaRecopilacionEdits(String autorReco,LocalDate creacionReco,String rutaFichero) {
+	
+	
+			recopilaciónEdits res=null;
+			try {
+				Stream<edits> sp = Files.lines(Paths.get(rutaFichero))
+						.map(FactoriaEdits::create);
+				res=new recopilaciónEdits(autorReco, creacionReco, sp);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		return res;
+	}  
 	
 	
 }

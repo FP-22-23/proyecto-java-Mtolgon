@@ -86,7 +86,7 @@ Objeto de clase factoria para contruir objetos de clse edits
 -create: crea un objeto de tipo edits a partir de una cadena de texto. 
 -ParseaGeoIp: crea un objeto de tipo GeoIp a partir de una cadena de texto.
 -leerEdits:crea una lista de objetos de tipo edits a partir de un fichero.
-
+-creaRecopilacionEdits:crea un objeto de tipo recopilacionEdits a partir de una ruta del fichero
 ### Tipo Contenedor-recopilacionEdits
 
 Clase contenedora de los objetos de tipo edits.Representa una recopilación de páginas editadas de la wikipedia.
@@ -101,7 +101,7 @@ Clase contenedora de los objetos de tipo edits.Representa una recopilación de p
 
 - C1: tiene un parametro por cada propiedad básica del tipo .
 - C2: tiene un parapmetro para el AutorReco y creacionReco, crea una lista vacia.
-- ...
+- c3: tiene un parametro para el AutorReco y creacionReco, crea la lita a partir de un stream
 
 
 **Criterio de igualdad**: Dos recopilaciones son iguales si lo son su autor y su fecha de creacion.
@@ -119,3 +119,13 @@ Clase contenedora de los objetos de tipo edits.Representa una recopilación de p
 -List<edits> editsPorPais: devuelve una lista con todos los edits hechos en un pais dado.
 -Map<Integer, List<edits>> editsPorAño:devuelve un Map que agrupa los edits por el año en que se hiceron
 -Map<Integer, Integer> NumEditsPorCaracCambiados():devuelve un Map que relaciona en el número de caracteres cambiados con el número de edits en los que se ha cambiado ese número de caracteres.
+-boolean ExisteUnEditsDeUsuario2: devuelve true si hay al menos un edits hecho por un usario dado.
+-Double mediaEditsPorUsuariosRegistrados2():devuelve la media  de cuantos edits han sido hechos por usuarios registrados.
+-List<edits> editsPorPais2: devuelve una lista con todos los edits hechos en un pais dado.
+-edits MaxNumCaracteresCambiadosPorUsuarioAnonimo:devuelve que el usuario que haya realizado el mayor numero de cambios en una página
+-List<edits> listaEditsPorUsuario:devuelve una lista de edits hechos por un usuario dado
+-Map<Integer, List<edits>> editsPorAño2:devuelve un Map que agrupa los edits por el año en que se hiceron
+-Set<String> listaNombres:devuelve un conjunto con lo nombres de usuarios que hayan realizado un edit
+-Map<String,Integer> mayorNumCambiosPorPagina: devuelve un map que relaciona el titulo de las paginas editadas con el mayor número de carácteres cambiados.
+-Map<String, List<Integer>> NmayoresNumCambiosPorUser:devuelve un map que relaciona el titulo de las paginas editadas con los n mayores números de carácteres cambiados.
+-String Usuariomasapariciones:devuelve el noimbre del usuario que mas aprezca en la collcion
